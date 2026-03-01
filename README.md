@@ -1,82 +1,137 @@
-# make-json-to-env 🚀
+# 🚀 make-json-to-env
 
-A lightweight CLI tool to transform your `JSON` configuration files into `.env` templates instantly. Perfect for generating `.env.example` files without manual typing.
+**The ultimate zero-dependency CLI tool to transform complex, nested JSON into clean, production-ready `.env` files.**
+
+---
+
+## 💡 Why `make-json-to-env`?
+
+Most JSON-to-ENV converters stop at the first level or handle arrays poorly. `make-json-to-env` was built to solve the "Deep Config" problem. Whether you have a 10-level nested Firebase config or a simple flat JSON, this tool generates a standard, predictable `.env` structure that works with `dotenv`, Docker, and Shell scripts.
+
+---
+
+## 🔥 Features
+
+* **⚡ Ultra-Lightweight** – Zero dependencies. It uses native Node.js `fs` and `path` modules.
+* **🌳 Infinite Recursion** – No depth limits. It flattens deep objects into a `PARENT_CHILD_KEY` convention.
+* **🔢 Intelligent Array Mapping** – Converts arrays into indexed variables (e.g., `TAGS_0`, `TAGS_1`).
+* **🛡️ Built with TypeScript** – Fully type-safe with robust error handling for invalid JSON.
+* **⚙️ Prefix Support** – Prepend `export `, `SET `, or `REACT_APP_` to every variable automatically.
+* **🚫 Smart Flattening Toggle** – Use `--no-flatten` if you want nested objects to stay as JSON strings.
 
 ---
 
 ## 📦 Installation
 
-You can run it directly without installing using `npx`:
+### Use without installing (Recommended)
 
 ```bash
-npx make-json-to-env <filename.json>
+npx make-json-to-env config.json
 
 ```
 
-Or install it globally to use the command anywhere:
+### Global Installation
 
 ```bash
 npm install -g make-json-to-env
 
 ```
 
-## 🛠 Usage
+---
 
-Once installed, use the `convert-json-env` command followed by your JSON file:
+## 🛠 Usage & Commands
 
-### Basic Conversion
+The tool provides the `make-json-to-env` command.
+
+### 1. Basic Conversion
+
+Converts `config.json` to `config.env`.
 
 ```bash
-convert-json-env config.json
+make-json-to-env config.json
 
 ```
 
-*This will create a `config.env` file in the same directory.*
+### 2. Using Custom Prefixes
 
-### With a Prefix
-
-Use the `--prefix` flag to prepend strings to every line (useful for shell scripts or specific frameworks).
+Great for shell scripts or specific frameworks (like Create React App).
 
 ```bash
-convert-json-env firebaseConfig.json --prefix="export "
+make-json-to-env config.json --prefix="export "
+
+```
+
+### 3. Disabling Flattening
+
+Keep nested objects as serialized strings.
+
+```bash
+make-json-to-env data.json --no-flatten
 
 ```
 
 ---
 
-## 📋 Example
+## 📋 Deep-Flattening Example
 
-**Input (`example.json`):**
+**Input (`settings.json`):**
 
 ```json
 {
-  "apiKey": "12345",
-  "authDomain": "app.firebaseapp.com",
-  "projectId": "my-app"
+  "server": {
+    "port": 3000,
+    "auth": {
+      "methods": ["google", "github"],
+      "enabled": true
+    }
+  },
+  "log_level": "info"
 }
 
 ```
 
-**Command:**
-
-```bash
-convert-json-env example.json --prefix="export "
-
-```
-
-**Output (`example.env`):**
+**Output (`settings.env`):**
 
 ```env
-APP_NAME="My Cool App"
-PORT=8080
-DB_ENABLED=true
+SERVER_PORT=3000
+SERVER_AUTH_METHODS_0=google
+SERVER_AUTH_METHODS_1=github
+SERVER_AUTH_ENABLED=true
+LOG_LEVEL=info
+
 ```
 
 ---
 
-## ✨ Features
+## 🚀 Advanced Flag Reference
 
-* **No Dependencies:** Light as a feather, uses native Node.js modules.
-* **Smart Naming:** Automatically generates the output filename based on your input.
-* **Case Formatting:** Automatically converts keys to `UPPER_CASE` for standard `.env` compliance.
-* **Security First:** Helps you create `.env.example` files so you never accidentally commit your real secrets.
+| Flag | Type | Description |
+| --- | --- | --- |
+| `<filename>` | `string` | **Required.** The path to your JSON source file. |
+| `--prefix` | `string` | Prepend a string to every key (e.g., `--prefix="VITE_"`). |
+| `--no-flatten` | `boolean` | Stops recursion. Nested objects are saved as JSON strings. |
+
+---
+
+## 🛠 Development & Contributing
+
+Contributions are welcome! To set up the project locally:
+
+1. **Clone the repo:** `git clone https://github.com/ajay-vish/make-json-to-env.git`
+2. **Install types:** `npm install`
+3. **Build from TS:** `npm run build`
+4. **Test locally:** `node dist/index.js example.json`
+
+---
+
+## 📄 License
+
+Distributed under the **MIT License**. See the `LICENSE` file for full text.
+
+---
+
+## ⭐️ Support
+
+If this tool saved you time, please give it a star on [GitHub](https://github.com/ajay-vish/make-json-to-env)!
+
+---
