@@ -1,0 +1,41 @@
+{
+  "name": "make-json-to-env",
+  "version": "1.0.5",
+  "description": "Infinite recursive JSON to ENV flattener written in TypeScript.",
+  "main": "./dist/index.js",
+  "bin": {
+    "make-json-to-env": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "start": "ts-node src/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.35",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "keywords": [
+    "env",
+    "json",
+    "converter",
+    "template",
+    "dot-env",
+    "environment-variables",
+    "config-to-env",
+    "cli",
+    "devtools",
+    "automation",
+    "boilerplate",
+    "env-example",
+    "dotenv-generator",
+    "configuration",
+    "secrets-management"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
