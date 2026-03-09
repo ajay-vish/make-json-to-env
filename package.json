@@ -27,6 +27,7 @@
   "homepage": "https://github.com/ajay-vish/make-json-to-env#readme",
   "devDependencies": {
     "@types/node": "^20.19.35",
+    "@types/yargs": "^17.0.35",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },
@@ -48,5 +49,8 @@
     "secrets-management"
   ],
   "author": "Ajay Vishwakarma",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "yargs": "^18.0.0"
+  }
 }
